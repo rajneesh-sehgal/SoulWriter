@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>6d19ce3b-dd1f-4a5a-92be-d40767f8c742</UserSecretsId>
+    </PropertyGroup>
+
+    <Target Name="Tailwind" BeforeTargets="Compile">
+	    <Exec Command="npx tailwindcss -i ./wwwroot/site.css -o ./wwwroot/site.min.css" />
+    </Target>
+
+    <ItemGroup>
+      <None Remove="Agents\BrainstormingAgent\BrainstormingAgent.yaml" />
+      <None Remove="Agents\DraftWritingAgent\DraftWritingAgent.yaml" />
+      <None Remove="Agents\PlatformFormatterAgent\PlatformFormatterAgent.yaml" />
+      <None Remove="Agents\RouterAgent\RouterAgent.yaml" />
+      <None Remove="Agents\TalkingPointsAgent\TalkingPointsAgent.yaml" />
+      <None Remove="Agents\TopicRefinementAgent\TopicRefinementAgent.yaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Agents\BrainstormingAgent\BrainstormingAgent.yaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Agents\DraftWritingAgent\DraftWritingAgent.yaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Agents\PlatformFormatterAgent\PlatformFormatterAgent.yaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Agents\RouterAgent\RouterAgent.yaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Agents\TalkingPointsAgent\TalkingPointsAgent.yaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Agents\TopicRefinementAgent\TopicRefinementAgent.yaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Markdig" Version="0.41.1" />
+      <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.49.0" />
+      <PackageReference Include="Microsoft.SemanticKernel" Version="1.47.0" />
+      <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.47.0" />
+      <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.47.0" />
+      <PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.47.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+	
+</Project>

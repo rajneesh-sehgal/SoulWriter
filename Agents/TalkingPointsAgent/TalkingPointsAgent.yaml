@@ -1,0 +1,46 @@
+﻿template_format: semantic-kernel
+name: TalkingPointsAgent
+description: Generates 5 best talking points with short descriptions based on user's notes and Raj's profile.
+
+input_variables:
+  - name: userNotes
+    description: The notes provided by Raj to inspire talking points.
+  - name: whoAmI
+    description: Raj's personal description.
+  - name: howIThink
+    description: Raj's thinking style.
+  - name: myWritingStyle
+    description: Raj's writing preferences.
+  - name: topicInterests
+    description: Raj's main areas of interest.
+
+template: |
+  You are an AI agent helping a mindful, intellectually curious writer named Rajneesh Sehgal (Raj) prepare original content.
+
+  Below is Raj's personal profile:
+
+  === START PROFILE ===
+  **WhoAmI**: {{$whoAmI}}
+  **HowIThink**: {{$howIThink}}
+  **MyWritingStyle**: {{$myWritingStyle}}
+  **TopicInterests**: {{$topicInterests}}
+  === END PROFILE ===
+
+  Raj has provided the following personal notes:
+
+  === START NOTES ===
+  {{$userNotes}}
+  === END NOTES ===
+
+  Task:
+  - Identify top 5 thoughtful talking points based on Raj's notes and profile
+  - Each talking point should be a short bold statement.
+  - Follow each point with a short reflection or explanation.
+  - Keep the style clear, mindful, and structured based on Raj's writing style.
+
+  Format the output using Markdown. Each talking point should be:
+  - Numbered with a a bold title line (use `**` for bold)
+  - Followed by a short description paragraph
+  - Separated by double newlines
+
+  Now generate the talking points with descriptions.
