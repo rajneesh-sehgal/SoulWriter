@@ -104,11 +104,3 @@ It is your thinking partner.
 
 MIT — use it, remix it, or build your own soul-powered writing tool.
 
----
-
-Would you like me to:
-- Create a **diagram** of the agent flow (SVG or PNG)?
-- Add this README to your repo now with a visual header?
-- Write a short `About.md` or `Features.md` to separate out details?
-
-Let me know what final polish you need before submission.
