@@ -44,19 +44,11 @@ public class RouterAgentService
             response = response + content.Content;
         }
 
-        try
+        var json = JsonDocument.Parse(response);
+        return new RoutingResult
         {
-            var json = JsonDocument.Parse(response);
-            return new RoutingResult
-            {
-                Agent = json.RootElement.GetProperty("agent").GetString() ?? "",
-                Intent = json.RootElement.GetProperty("intent").GetString() ?? "",
-                Reason = json.RootElement.GetProperty("reason").GetString() ?? ""
-            };
-        }
-        catch (Exception ex)
-        {
-            return null;
-        }      
+            Agent = json.RootElement.GetProperty("agent").GetString() ?? "",
+            Reason = json.RootElement.GetProperty("reason").GetString() ?? ""
+        };
     }
 }

@@ -49,6 +49,28 @@ public partial class Home : ComponentBase
 
     private List<MessageModel> Messages = new();
 
+    private string WelcomeMessage = """
+        Hi there, I am **SoulWriter**, your personal thinking partner.
+
+        Whether you are feeling inspired or just a little curious, I am here to help you shape your thoughts into something meaningful — one step at a time.
+
+        Here is how we can work together:
+
+        1. **Start with a small note or thought.**  
+            It can be a sentence, a question, or something you jotted down in a moment of insight.
+
+        2. **Let us explore it together.**  
+            I will help you brainstorm ideas, offer fresh angles, and ask questions that spark deeper reflection.
+
+        3. **You collect what clicks.**  
+            Copy and paste anything you like into your notes. When you are ready, I can help turn those into a full blog post draft.
+
+        4. **Need formatting?**  
+            Once your draft is ready, I can also help format it beautifully for Medium or other platforms.
+
+        So, what thought or note would you like to begin with today?
+        """;
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -115,88 +137,43 @@ public partial class Home : ComponentBase
 
         var routingResult = await RouterAgentService.RouteToAgentAsync(_chatCompletionServiceId, input, conversationContext);
         var selectedAgent = routingResult?.Agent ?? "";
-        var intent = routingResult?.Intent ?? "";
         var routingReason = routingResult?.Reason ?? "";
         string response = "🤖 Sorry, I am not sure what to do with that yet.";
 
         switch (selectedAgent)
         {
             case "BrainstormingAgent":                
-                if (intent == "CollaborateOnIdea")
-                {
-                    response = await BrainstormingAgentService.ChatAsync(
-                        _chatCompletionServiceId,
-                        input,
-                        userNotes: UserNotes,
-                        whoAmI: profile?.WhoAmI ?? "",
-                        howIThink: profile?.HowIThink ?? "",
-                        myWritingStyle: profile?.MyWritingStyle ?? ""
-                    );
-                }
+                response = await BrainstormingAgentService.ChatAsync(
+                    _chatCompletionServiceId,
+                    input,
+                    conversationContext
+                );
                 break;
 
             case "DraftWritingAgent":
-                if (intent == "GenerateDraft")
-                {
-                    var points = await TalkingPointsStoreService.GetAsPlainTextAsync();
-                    response = await DraftWritingAgentService.GenerateDraftAsync(
-                        _chatCompletionServiceId,
-                        points,
-                        profile?.WhoAmI ?? "",
-                        profile?.HowIThink ?? "",
-                        profile?.MyWritingStyle ?? ""
-                    );
-                }
+                var points = UserNotes;
+                response = await DraftWritingAgentService.GenerateDraftAsync(
+                    _chatCompletionServiceId,
+                    points,
+                    profile?.WhoAmI ?? "",
+                    profile?.HowIThink ?? "",
+                    profile?.MyWritingStyle ?? ""
+                );
                 break;
 
             case "PlatformFormatterAgent":
-                if (intent == "FormatForMedium")
+                var lastDraft = Messages.LastOrDefault(m => m.AgentName == "DraftWritingAgent")?.Text;
+                if (!string.IsNullOrWhiteSpace(lastDraft))
                 {
-                    var lastDraft = Messages.LastOrDefault(m => m.AgentName == "DraftWritingAgent")?.Text;
-                    if (!string.IsNullOrWhiteSpace(lastDraft))
-                    {
-                        response = await PlatformFormatterAgentService.FormatForMediumAsync(
-                            _chatCompletionServiceId,
-                            lastDraft,
-                            profile?.MyWritingStyle ?? ""
-                        );
-                    }
-                    else
-                    {
-                        response = "⚠️ I could not find any previous draft to format.";
-                    }
+                    response = await PlatformFormatterAgentService.FormatForMediumAsync(
+                        _chatCompletionServiceId,
+                        lastDraft,
+                        profile?.MyWritingStyle ?? ""
+                    );
                 }
-                break;
-
-            case "TalkingPointsStore":
-                switch (intent)
+                else
                 {
-                    case "AddTalkingPoint":
-                        var msgToSave = Messages.LastOrDefault(m => m.Sender == "You")?.Text;
-                        if (!string.IsNullOrWhiteSpace(msgToSave))
-                        {
-                            await TalkingPointsStoreService.AddAsync(msgToSave);
-                            response = "✅ Added to your talking points list.";
-                        }
-                        break;
-
-                    case "ListTalkingPoints":
-                        response = await TalkingPointsStoreService.GetAsMarkdownAsync();
-                        break;
-
-                    case "DeleteTalkingPoint":
-                        var deleted = await TalkingPointsStoreService.DeleteByIndexAsync(1); // use parsed index here
-                        response = deleted ? "🗑️ Deleted point 2." : "⚠️ Could not delete that point.";
-                        break;
-
-                    case "ClearTalkingPoints":
-                        await TalkingPointsStoreService.ClearAsync();
-                        response = "🧹 Cleared all talking points.";
-                        break;
-
-                    default:
-                        response = "⚠️ I am not sure what to do with that request.";
-                        break;
+                    response = "⚠️ I could not find any previous draft to format.";
                 }
                 break;
 

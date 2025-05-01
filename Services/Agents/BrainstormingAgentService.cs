@@ -25,10 +25,7 @@ public class BrainstormingAgentService
     public async Task<string> ChatAsync(
                 string chatCompletionServiceId,
                 string userMessage,
-                string userNotes,
-                string whoAmI,
-                string howIThink,
-                string myWritingStyle)
+                string conversationContext)
     {
         var args = new KernelArguments(new OpenAIPromptExecutionSettings()
         {
@@ -36,10 +33,7 @@ public class BrainstormingAgentService
         })
         {
             { "userMessage", userMessage },
-            { "userNotes", userNotes },
-            { "whoAmI", whoAmI },
-            { "howIThink", howIThink },
-            { "myWritingStyle", myWritingStyle }
+            { "conversationContext", conversationContext }
         };
 
         string response = string.Empty;

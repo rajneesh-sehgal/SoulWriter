@@ -32,9 +32,8 @@ public class PlatformFormatterAgentService
             ServiceId = chatCompletionServiceId
         })
         {
-            { "rawArticle", rawArticle },
-            { "platform", "Medium" },
-            { "myWritingStyle", writingStyle }
+            { "draftBlogPost", rawArticle },
+            { "platform", "Medium" }
         };
 
         string response = string.Empty;

@@ -19,32 +19,24 @@ public class UserProfile : BaseModel
             Name = "Rajneesh Sehgal",
             Email = "rajneesh.sehgal@gmail.com",
             WhoAmI = """
-                        I am a full-stack developer passionate about **mindfulness**, **personal development**, **fitness**, **AI**, and **storytelling**.
-
-                        Growing up, I overcame significant challenges, including health struggles and depression, eventually transforming myself through consistent action and marathon training.
-
-                        I deeply value:
-                        - **Consistency over intensity**
-                        - **Progress over perfection**
-                        - **Fundamentals over fads**
-
-                        My mission is to help others rediscover purpose and fulfillment, blending mindful living with practical technology.
+                        I am Rajneesh Sehgal, a lifelong learner, storyteller, runner, and software developer. 
+                        I have completed 3 marathons, led mindfulness workshops, and built AI-powered apps. 
+                        I am on a mission to help people in their 40s who feel lost despite being successful, just like I once did.
                       """,
             HowIThink = """
-                            I approach life with a strong sense of **mindful curiosity**, combining **practical reasoning** with **emotional intelligence**.
-
-                            I prefer **actionable insights** over theoretical complexity and focus on **small, consistent improvements** rather than quick fixes.
-
-                            Emotionally, I am reflective, empathetic, and committed to building systems and habits that empower long-term growth.
+                          I think deeply and reflectively. 
+                          I connect ideas across disciplines — from personal growth and technology to mindfulness and storytelling. 
+                          I value honesty, curiosity, and lived experience more than surface-level trends. 
+                          I often see patterns and deeper truths in everyday moments. 
+                          I question assumptions and like to simplify complexity.                        
                         """,
             MyWritingStyle = """
-                                My writing style is:
-                                - **Clear and concise**, avoiding unnecessary jargon.
-                                - Focused on **short paragraphs** for easy readability.
-                                - Using **simple, accessible language** that feels friendly and mindful.
-                                - Structured with **logical flow** from introduction to conclusion.
-                                - Avoids **em-dashes** and minimizes **contractions** (preferring "do not" instead of "don't").
-                                - Optimized for platforms like Medium, LinkedIn, and Twitter threads, following best practices.
+                                My writing is clear, conversational, and personal. 
+                                I use short paragraphs with simple words. 
+                                I speak from the heart, without trying to impress. 
+                                I avoid fluff and buzzwords. 
+                                I sometimes use humor or metaphor to make a point but stay grounded and relatable. 
+                                I want my readers to feel like I am talking with them, not at them.                             
                              """,
             TopicInterests = [
                                 "Mindfulness",

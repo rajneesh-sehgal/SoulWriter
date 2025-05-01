@@ -6,6 +6,12 @@
     <!-- Left: Chat -->
     <div class="flex-[2] flex-col gap-4">
         <div class="h-[75vh] space-y-4 overflow-y-auto rounded-xl border bg-white p-4 shadow" @ref="chatContainerRef">
+            <div class="flex justify-start">
+                <div class="relative max-w-xl rounded-2xl bg-gray-100 p-3 text-gray-900 shadow">
+
+                    @((MarkupString)MarkdownHelper.ToHtml(WelcomeMessage))
+                </div>
+            </div>
             @foreach (var msg in Messages)
             {
                 <div class="flex @((msg.Sender == "You") ? "justify-end" : "justify-start")">
